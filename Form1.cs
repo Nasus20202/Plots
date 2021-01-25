@@ -662,5 +662,45 @@ namespace Plots
                 formsPlot1.plt.SaveFig(path);
             }
         }
+
+        private void pomocToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Rówanie wpisz w pole do tego przeznaczone.\n" +
+                "Wartość Od to wartość x początkowa.\n" +
+                "Wartość Do to wartość x końcowa.\n" +
+                "Wartość Krok to odległość pomiędzy punktami.\n\n" +
+                "Operatory matematyczne typu + i * proszę odzielać spacjami od liczb.\n" +
+                "Ułamki zapisujemy z użyciem przecinka, np. 0,4.\n\n" +
+                "Funckcjonalność:\n" +
+                "Dodawanie (+) - x + 2\n" +
+                "Odejmowanie (-) - 5 - x\n" +
+                "Mnożenie (*) - 3 * x\n" +
+                "Dzielenie (/) - x / 0,5\n" +
+                "Potęgowanie (^) - 2 ^ 3\n" +
+                "Pierwiastek 2 stopnia (sqrt, pierw2) np. sqrt 4\n" +
+                "Pierwiastek dowolnego stopnia (root, pierw) np. root 2 9 = 3\n" +
+                "Nawiasy () - np. 5 - (2 + 3) = 0\n" +
+                "Funckje trygonometryczne:\n" +
+                "Sinus (sin) np. sin x\n" +
+                "Cosinus (cos) np. cos 60\n" +
+                "Tangens (tg) np. tg x\n" +
+                "Cotangens (ctg) np. ctg 45\n\n\n" +
+                "Przykład:" +
+                "Równanie: x ^ 2 - 5 * x + 12\n" +
+                "Od: -10\n" +
+                "Do: 10\n" +
+                "Krok: 0,1", "Pomoc",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Question);
+        }
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://swharden.com/scottplot/");
+            System.Diagnostics.Process.Start("https://github.com/Nasus20202/Plots");
+            MessageBox.Show("Autor: Krzysztof Nasuta\n\nProgram napisany w C# z użwyciem Windows Forms .NET oraz bibloteki ScottPlot.", "Info",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Asterisk);
+        }
     }
 }

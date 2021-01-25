@@ -69,7 +69,7 @@ namespace Plots
             this.equationText.Name = "equationText";
             this.equationText.Size = new System.Drawing.Size(336, 20);
             this.equationText.TabIndex = 1;
-            this.equationText.Text = "x + 1 + 2 + 3";
+            this.equationText.Text = "x ^ 2 - 5 * x + 12";
             this.equationText.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // drawBtn
@@ -159,9 +159,9 @@ namespace Plots
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(15, 33);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(318, 13);
+            this.label5.Size = new System.Drawing.Size(316, 13);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Shift + scroll = zmiania osi OY       Control + Scroll = zmiania osi OX";
+            this.label5.Text = "Shift + scroll = zmiania osi OY       Control + scroll = zmiania osi OX";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
@@ -233,12 +233,14 @@ namespace Plots
             this.pomocToolStripMenuItem.Name = "pomocToolStripMenuItem";
             this.pomocToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.pomocToolStripMenuItem.Text = "&Pomoc";
+            this.pomocToolStripMenuItem.Click += new System.EventHandler(this.pomocToolStripMenuItem_Click);
             // 
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
             this.infoToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.infoToolStripMenuItem.Text = "&Info";
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
             // zapiszJakoToolStripMenuItem
             // 
