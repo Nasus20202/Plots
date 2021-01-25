@@ -159,6 +159,7 @@ namespace Plots
                 }
             }
 
+            
 
             // Brackets
             for (int i = 0; i < parts.Count; i++)
@@ -178,6 +179,8 @@ namespace Plots
                 }
             }
             // x
+
+            
 
             for (int i = 0; i < parts.Count; i++)
             {
@@ -209,27 +212,97 @@ namespace Plots
 
             // Add, subtract
 
-            for (int i = 0; i < parts.Count; i++)
+            for (int k = 0; k < parts.Count; k++)
             {
-                string part = parts[i];
-                if (part.Contains("+"))
+                for (int i = 0; i < parts.Count; i++)
                 {
-                    try
+
+                    string part = parts[i];
+                    //MessageBox.Show(i.ToString());
+                    if (part.Contains("+"))
                     {
-                        string a = parts[i - 1];
-                        string b = parts[i + 1];
-                        string result = Convert.ToString(Convert.ToDouble(a) + Convert.ToDouble(b));
-                        parts[i] = result;
-                        parts.RemoveAt(i - 1);
-                        parts.RemoveAt(i);
+                        try
+                        {
+                            string a, b;
+                            try
+                            {
+                                a = parts[i - 1];
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Not found");
+                                a = "0";
+                            }
+                            try
+                            {
+                                b = parts[i + 1];
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Not found");
+                                b = "0";
+                            }
+                            string result = Convert.ToString(Convert.ToDouble(a) + Convert.ToDouble(b));
+                            parts[i] = result;
+                            parts.RemoveAt(i - 1);
+                            parts.RemoveAt(i);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Niepoprawne dodawanie");
+                        }
                     }
-                    catch
+                    if (part.Contains("-"))
                     {
-                        MessageBox.Show("Niepoprawne dodawanie");
+                        try
+                        {
+                            string a, b;
+                            try
+                            {
+                                a = parts[i - 1];
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Not found");
+                                a = "0";
+                            }
+                            try
+                            {
+                                b = parts[i + 1];
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Not found");
+                                b = "0";
+                            }
+                            string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
+                            parts[i] = result;
+                            parts.RemoveAt(i - 1);
+                            parts.RemoveAt(i);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Niepoprawne odejmowanie");
+                        }
                     }
                 }
             }
-            y = Convert.ToDouble(parts[0]);
+
+
+            foreach(var part in parts)
+            {
+                //MessageBox.Show(part);
+            }
+
+            try
+            {
+                y = Convert.ToDouble(parts[0]);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                y = 0;
+            }
             return y;
         }
 

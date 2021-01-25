@@ -56,7 +56,7 @@ namespace Plots
             this.equationText.Name = "equationText";
             this.equationText.Size = new System.Drawing.Size(357, 20);
             this.equationText.TabIndex = 1;
-            this.equationText.Text = "x^2 + (x + 2) - 9";
+            this.equationText.Text = "x + 1 + 2 + 3";
             this.equationText.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // drawBtn
