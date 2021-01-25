@@ -569,8 +569,6 @@ namespace Plots
                     }
                     if (part.Contains("- "))
                     {
-                        try
-                        {
                             string a, b;
                             try
                             {
@@ -588,19 +586,29 @@ namespace Plots
                             {
                                 b = "0";
                             }
+                            
                             string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
                             parts[i] = result;
-                            parts.RemoveAt(i - 1);
-                            parts.RemoveAt(i);
-                        }
-                        catch
-                        {
-                            return 0;
-                        }
+                            try
+                            {
+                                parts.RemoveAt(i - 1);
+                            }
+                            catch
+                            {
+
+                            }
+                            try
+                            {
+                                parts.RemoveAt(i+1);
+                            }
+                            catch
+                            {
+
+                            }
+                        
                     }
                 }
             }
-
 
             foreach(var part in parts)
             {
