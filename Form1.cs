@@ -79,18 +79,27 @@ namespace Plots
             }
             if (brackets.Count != 0)
             {
-                MessageBox.Show("Jeden z nawiasów jest niedokmnięty");
+                MessageBox.Show("Jeden z nawiasów jest niedomknięty");
                 return;
             }
-            for(double i = from; i <=to; i+=step)
+            List<double> dataXtemp = new List<double>();
+            List<double> dataYtemp = new List<double>();
+            int c = 0;
+            for (double i = from; i <= to; i += step)
             {
                 double x = i;
                 double y = calculate(equation, x);
-
+                dataXtemp.Add(x);
+                dataYtemp.Add(y);
+                c++;
             }
-
-            double[] dataX = new double[] { 1, 2 };
-            double[] dataY = new double[] { 3, 4 };
+            double[] dataX = new double[c];
+            double[] dataY = new double[c];
+            for(int i = 0; i < c; i++)
+            {
+                dataX[i] = dataXtemp[i];
+                dataY[i] = dataYtemp[i];
+            }
 
             formsPlot1.plt.PlotScatter(dataX, dataY);
             formsPlot1.Render();
@@ -130,7 +139,6 @@ namespace Plots
                         temp += ch;
                         if (temp != " " && temp != "")
                         {
-                            
                             parts.Add(temp);
                         }
                         temp = String.Empty;
@@ -151,11 +159,6 @@ namespace Plots
                 }
             }
 
-            for (int i = 0; i < parts.Count; i++)
-            {
-                string part = parts[i];
-                MessageBox.Show(part);
-            }
 
             // Brackets
             for (int i = 0; i < parts.Count; i++)
@@ -171,7 +174,6 @@ namespace Plots
                         
                     }
                     newPart = calculate(newEquation, x).ToString();
-                    MessageBox.Show(newEquation);
                     parts[i] = newPart;
                 }
             }
@@ -210,8 +212,24 @@ namespace Plots
             for (int i = 0; i < parts.Count; i++)
             {
                 string part = parts[i];
-                MessageBox.Show(part);
+                if (part.Contains("+"))
+                {
+                    try
+                    {
+                        string a = parts[i - 1];
+                        string b = parts[i + 1];
+                        string result = Convert.ToString(Convert.ToDouble(a) + Convert.ToDouble(b));
+                        parts[i] = result;
+                        parts.RemoveAt(i - 1);
+                        parts.RemoveAt(i);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Niepoprawne dodawanie");
+                    }
+                }
             }
+            y = Convert.ToDouble(parts[0]);
             return y;
         }
 
