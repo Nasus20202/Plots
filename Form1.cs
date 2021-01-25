@@ -27,10 +27,30 @@ namespace Plots
 
         }
 
-
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if(keyData == Keys.Enter || keyData == Keys.D)
+            {
+                draw();
+                return true;
+            }
+            if (keyData == (Keys.C | Keys.Shift))
+            {
+                clear();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            draw();
+        }
+
+        private void draw()
+        {
+            zeroDivide = false;
+            genericError = false;
             string equation = equationText.Text;
             double from = 0, to = 0, step = 0;
             try
@@ -72,7 +92,7 @@ namespace Plots
                     }
                     else
                     {
-                        MessageBox.Show("Jeden z nawiasów jest niedokmnięty");
+                        MessageBox.Show("Jeden z nawiasów jest niedomknięty");
                         return;
                     }
                 }
@@ -100,11 +120,26 @@ namespace Plots
                 dataX[i] = dataXtemp[i];
                 dataY[i] = dataYtemp[i];
             }
+            if (!genericError && !zeroDivide)
+            {
+                formsPlot1.plt.PlotScatter(dataX, dataY);
+                formsPlot1.Render();
+            }
+        }
 
-            formsPlot1.plt.PlotScatter(dataX, dataY);
+        private void clearBtn_Click(object sender, EventArgs e)
+        {
+            clear();
+        }
+
+        private void clear()
+        {
+            formsPlot1.plt.Clear();
             formsPlot1.Render();
         }
 
+        static bool zeroDivide = false;
+        static bool genericError = false;
         private double calculate(string equation, double x)
         {
             double y = 0; int bracketsOpened = 0;
@@ -204,11 +239,294 @@ namespace Plots
 
             // Trigonometry
 
+            for (int k = 0; k < parts.Count; k++)
+            {
+                for (int i = 0; i < parts.Count; i++)
+                {
 
+                    string part = parts[i];
+                    if (part.Contains("sin"))
+                    {
+                        try
+                        {
+                            string a;
+                            try
+                            {
+                                a = parts[i + 1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            string result = Convert.ToString(Math.Sin(Math.PI * Convert.ToDouble(a) / 180.0));
+                            parts[i] = result;
+                            parts.RemoveAt(i + 1);
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                    if (part.Contains("cos"))
+                    {
+                        try
+                        {
+                            string a;
+                            try
+                            {
+                                a = parts[i + 1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            string result = Convert.ToString(Math.Cos(Math.PI * Convert.ToDouble(a) / 180.0));
+                            parts[i] = result;
+                            parts.RemoveAt(i + 1);
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                    if (part.Contains("ctg"))
+                    {
+                        try
+                        {
+                            string a;
+                            try
+                            {
+                                a = parts[i + 1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            double ad = Convert.ToDouble(a);
+                            double tg = Math.Tan(Math.PI * ad / 180.0);
+                            string result;
+                            if (tg != 0) {
+                                result = Convert.ToString(1.0 / tg);
+                            }
+                            else
+                            {
+                                result = "0";
+                            }
+                            parts[i] = result;
+                            parts.RemoveAt(i + 1);
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                    else if (part.Contains("tg"))
+                    {
+                        try
+                        {
+                            string a;
+                            try
+                            {
+                                a = parts[i + 1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            double ad = Math.Round(Convert.ToDouble(a), 1);
+                                string result = Convert.ToString(Math.Tan(Math.PI * ad / 180.0));
+                                parts[i] = result;
+                                parts.RemoveAt(i + 1);
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                    
+
+                }
+            }
 
             // Power, root
 
+            for (int k = 0; k < parts.Count; k++)
+            {
+                for (int i = 0; i < parts.Count; i++)
+                {
+
+                    string part = parts[i];
+                    if (part.Contains("^"))
+                    {
+                        try
+                        {
+                            string a, b;
+                            try
+                            {
+                                a = parts[i - 1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            try
+                            {
+                                b = parts[i + 1];
+                            }
+                            catch
+                            {
+                                b = "0";
+                            }
+                            string result = Convert.ToString(Math.Pow(Convert.ToDouble(a), Convert.ToDouble(b)));
+                            parts[i] = result;
+                            parts.RemoveAt(i - 1);
+                            parts.RemoveAt(i);
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                    if (part.Contains("sqrt") || part.Contains("pierw2"))
+                    {
+                        try
+                        {
+                            string a;
+                            try
+                            {
+                                a = parts[i + 1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            string result = Convert.ToString(Math.Pow(Convert.ToDouble(a), 0.5));
+                            parts[i] = result;
+                            parts.RemoveAt(i + 1);
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                    if (part.Contains("root") || part.Contains("pierw"))
+                    {
+                        try
+                        {
+                            string a, b;
+                            try
+                            {
+                                a = parts[i+1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            try
+                            {
+                                b = parts[i + 2];
+                            }
+                            catch
+                            {
+                                b = "0";
+                            }
+                             string result = Convert.ToString(Math.Pow(Convert.ToDouble(b), 1/Convert.ToDouble(a))); ;
+                             parts[i] = result;
+                             parts.RemoveAt(i+1);
+                             parts.RemoveAt(i+1);                           
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+
             // Multiply, divide
+
+
+            for (int k = 0; k < parts.Count; k++)
+            {
+                for (int i = 0; i < parts.Count; i++)
+                {
+
+                    string part = parts[i];
+                    if (part.Contains("*"))
+                    {
+                        try
+                        {
+                            string a, b;
+                            try
+                            {
+                                a = parts[i - 1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            try
+                            {
+                                b = parts[i + 1];
+                            }
+                            catch
+                            {
+                                b = "0";
+                            }
+                            string result = Convert.ToString(Convert.ToDouble(a) * Convert.ToDouble(b));
+                            parts[i] = result;
+                            parts.RemoveAt(i - 1);
+                            parts.RemoveAt(i);
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                    if (part.Contains("/"))
+                    {
+                        try
+                        {
+                            string a, b;
+                            try
+                            {
+                                a = parts[i - 1];
+                            }
+                            catch
+                            {
+                                a = "0";
+                            }
+                            try
+                            {
+                                b = parts[i + 1];
+                            }
+                            catch
+                            {
+                                b = "1";
+                            }
+                            if (Convert.ToDouble(b) != 0)
+                            {
+                                string result = Convert.ToString(Convert.ToDouble(a) / Convert.ToDouble(b));
+                                parts[i] = result;
+                                parts.RemoveAt(i - 1);
+                                parts.RemoveAt(i);
+                            }
+                            else
+                            {
+                                if (!zeroDivide)
+                                {
+                                    MessageBox.Show("Dzielenie przez zero", "Błąd matematyczny", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    zeroDivide = true;
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
 
             // Add, subtract
 
@@ -218,7 +536,6 @@ namespace Plots
                 {
 
                     string part = parts[i];
-                    //MessageBox.Show(i.ToString());
                     if (part.Contains("+"))
                     {
                         try
@@ -230,7 +547,6 @@ namespace Plots
                             }
                             catch
                             {
-                                MessageBox.Show("Not found");
                                 a = "0";
                             }
                             try
@@ -239,7 +555,6 @@ namespace Plots
                             }
                             catch
                             {
-                                MessageBox.Show("Not found");
                                 b = "0";
                             }
                             string result = Convert.ToString(Convert.ToDouble(a) + Convert.ToDouble(b));
@@ -249,10 +564,10 @@ namespace Plots
                         }
                         catch
                         {
-                            MessageBox.Show("Niepoprawne dodawanie");
+                            return 0;
                         }
                     }
-                    if (part.Contains("-"))
+                    if (part.Contains("- "))
                     {
                         try
                         {
@@ -263,7 +578,6 @@ namespace Plots
                             }
                             catch
                             {
-                                MessageBox.Show("Not found");
                                 a = "0";
                             }
                             try
@@ -272,7 +586,6 @@ namespace Plots
                             }
                             catch
                             {
-                                MessageBox.Show("Not found");
                                 b = "0";
                             }
                             string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
@@ -282,7 +595,7 @@ namespace Plots
                         }
                         catch
                         {
-                            MessageBox.Show("Niepoprawne odejmowanie");
+                            return 0;
                         }
                     }
                 }
@@ -298,9 +611,14 @@ namespace Plots
             {
                 y = Convert.ToDouble(parts[0]);
             }
-            catch(Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                if (!genericError)
+                {
+                    MessageBox.Show("Błędne dane", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    genericError = true;
+                }
+
                 y = 0;
             }
             return y;
@@ -315,5 +633,7 @@ namespace Plots
         {
 
         }
+
+        
     }
 }

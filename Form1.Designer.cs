@@ -40,6 +40,7 @@ namespace Plots
             this.toText = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.stepText = new System.Windows.Forms.TextBox();
+            this.clearBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // formsPlot1
@@ -54,18 +55,18 @@ namespace Plots
             // 
             this.equationText.Location = new System.Drawing.Point(123, 541);
             this.equationText.Name = "equationText";
-            this.equationText.Size = new System.Drawing.Size(357, 20);
+            this.equationText.Size = new System.Drawing.Size(336, 20);
             this.equationText.TabIndex = 1;
             this.equationText.Text = "x + 1 + 2 + 3";
             this.equationText.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // drawBtn
             // 
-            this.drawBtn.Location = new System.Drawing.Point(825, 541);
+            this.drawBtn.Location = new System.Drawing.Point(801, 551);
             this.drawBtn.Name = "drawBtn";
-            this.drawBtn.Size = new System.Drawing.Size(80, 23);
+            this.drawBtn.Size = new System.Drawing.Size(104, 23);
             this.drawBtn.TabIndex = 2;
-            this.drawBtn.Text = "Rysuj";
+            this.drawBtn.Text = "Rysuj (D)";
             this.drawBtn.UseVisualStyleBackColor = true;
             this.drawBtn.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -82,7 +83,7 @@ namespace Plots
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(486, 546);
+            this.label2.Location = new System.Drawing.Point(465, 545);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(21, 13);
             this.label2.TabIndex = 4;
@@ -92,7 +93,7 @@ namespace Plots
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(595, 545);
+            this.label3.Location = new System.Drawing.Point(574, 546);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(21, 13);
             this.label3.TabIndex = 5;
@@ -100,15 +101,15 @@ namespace Plots
             // 
             // fromText
             // 
-            this.fromText.Location = new System.Drawing.Point(513, 542);
+            this.fromText.Location = new System.Drawing.Point(492, 542);
             this.fromText.Name = "fromText";
             this.fromText.Size = new System.Drawing.Size(76, 20);
             this.fromText.TabIndex = 6;
-            this.fromText.Text = "0";
+            this.fromText.Text = "-10";
             // 
             // toText
             // 
-            this.toText.Location = new System.Drawing.Point(622, 542);
+            this.toText.Location = new System.Drawing.Point(601, 543);
             this.toText.Name = "toText";
             this.toText.Size = new System.Drawing.Size(80, 20);
             this.toText.TabIndex = 7;
@@ -117,7 +118,7 @@ namespace Plots
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(708, 546);
+            this.label4.Location = new System.Drawing.Point(687, 546);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 8;
@@ -125,17 +126,29 @@ namespace Plots
             // 
             // stepText
             // 
-            this.stepText.Location = new System.Drawing.Point(743, 542);
+            this.stepText.Location = new System.Drawing.Point(722, 543);
             this.stepText.Name = "stepText";
             this.stepText.Size = new System.Drawing.Size(73, 20);
             this.stepText.TabIndex = 9;
-            this.stepText.Text = "0,01";
+            this.stepText.Text = "0,1";
+            // 
+            // clearBtn
+            // 
+            this.clearBtn.Location = new System.Drawing.Point(801, 522);
+            this.clearBtn.Name = "clearBtn";
+            this.clearBtn.Size = new System.Drawing.Size(104, 23);
+            this.clearBtn.TabIndex = 10;
+            this.clearBtn.Text = "Czyść (Shift + C)";
+            this.clearBtn.UseVisualStyleBackColor = true;
+            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(917, 583);
+            this.Controls.Add(this.clearBtn);
             this.Controls.Add(this.stepText);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.toText);
@@ -167,6 +180,7 @@ namespace Plots
         private System.Windows.Forms.TextBox toText;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox stepText;
+        private System.Windows.Forms.Button clearBtn;
     }
 }
 
