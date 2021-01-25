@@ -634,6 +634,33 @@ namespace Plots
 
         }
 
-        
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Nasus20202/Plots");
+        }
+
+        private void zapiszObrazToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formsPlot1.plt.SaveFig("wykres.png");
+        }
+
+        private void zapiszJakoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Pliki PNG (*.png)|*.png|Wszystkie pliki (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+            saveFileDialog1.FileName = "wykres.png";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string path = saveFileDialog1.FileName;
+                formsPlot1.plt.SaveFig(path);
+            }
+        }
     }
 }
