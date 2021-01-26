@@ -46,12 +46,12 @@ namespace Plots
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zapiszObrazToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zapiszJakoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.edycjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rysujToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.czyśćToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zapiszJakoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -201,9 +201,17 @@ namespace Plots
             // 
             this.zapiszObrazToolStripMenuItem.Name = "zapiszObrazToolStripMenuItem";
             this.zapiszObrazToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.zapiszObrazToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zapiszObrazToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.zapiszObrazToolStripMenuItem.Text = "&Zapisz";
             this.zapiszObrazToolStripMenuItem.Click += new System.EventHandler(this.zapiszObrazToolStripMenuItem_Click);
+            // 
+            // zapiszJakoToolStripMenuItem
+            // 
+            this.zapiszJakoToolStripMenuItem.Name = "zapiszJakoToolStripMenuItem";
+            this.zapiszJakoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
+            this.zapiszJakoToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.zapiszJakoToolStripMenuItem.Text = "Zapisz &jako";
+            this.zapiszJakoToolStripMenuItem.Click += new System.EventHandler(this.zapiszJakoToolStripMenuItem_Click);
             // 
             // edycjaToolStripMenuItem
             // 
@@ -217,14 +225,14 @@ namespace Plots
             // rysujToolStripMenuItem
             // 
             this.rysujToolStripMenuItem.Name = "rysujToolStripMenuItem";
-            this.rysujToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rysujToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.rysujToolStripMenuItem.Text = "&Rysuj";
             this.rysujToolStripMenuItem.Click += new System.EventHandler(this.button1_Click);
             // 
             // czyśćToolStripMenuItem
             // 
             this.czyśćToolStripMenuItem.Name = "czyśćToolStripMenuItem";
-            this.czyśćToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.czyśćToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.czyśćToolStripMenuItem.Text = "&Czyść";
             this.czyśćToolStripMenuItem.Click += new System.EventHandler(this.clearBtn_Click);
             // 
@@ -241,14 +249,6 @@ namespace Plots
             this.infoToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.infoToolStripMenuItem.Text = "&Info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
-            // 
-            // zapiszJakoToolStripMenuItem
-            // 
-            this.zapiszJakoToolStripMenuItem.Name = "zapiszJakoToolStripMenuItem";
-            this.zapiszJakoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.zapiszJakoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.zapiszJakoToolStripMenuItem.Text = "Zapisz &jako";
-            this.zapiszJakoToolStripMenuItem.Click += new System.EventHandler(this.zapiszJakoToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -274,6 +274,7 @@ namespace Plots
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Wykresy";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

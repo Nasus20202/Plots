@@ -569,43 +569,79 @@ namespace Plots
                     }
                     if (part.Contains("- "))
                     {
+                        /*string a, b;
+                        try
+                        {
+                            a = parts[i - 1];
+                        }
+                        catch
+                        {
+                            a = "0";
+                        }
+                        try
+                        {
+                            b = parts[i + 1];
+                        }
+                        catch
+                        {
+                            b = "0";
+                        }
+
+                        string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
+                        parts[i] = result;
+                        try
+                        {
+                            parts.RemoveAt(i - 1);
+                        }
+                        catch
+                        {
+
+                        }
+                        try
+                        {
+                            parts.RemoveAt(i+1);
+                        }
+                        catch
+                        {
+
+                        }*/
                             string a, b;
-                            try
+                            bool isA = true, isB = true;
+                            if(i>=1)
                             {
                                 a = parts[i - 1];
                             }
-                            catch
+                            else
                             {
                                 a = "0";
+                            isA = false;
                             }
-                            try
+                            if(i<parts.Count-1)
                             {
                                 b = parts[i + 1];
                             }
-                            catch
+                            else
                             {
                                 b = "0";
+                            isB = false;
                             }
-                            
                             string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
+                            //MessageBox.Show(result);
                             parts[i] = result;
-                            try
-                            {
-                                parts.RemoveAt(i - 1);
-                            }
-                            catch
-                            {
+                        if(isA && isB)
+                        {
+                            parts.RemoveAt(i - 1);
+                            parts.RemoveAt(i);
+                        }
+                        else if(isA && !isB)
+                        {
+                            parts.RemoveAt(i - 1);
+                        }
+                        else if (!isA && isB)
+                        {
+                            parts.RemoveAt(i + 1);
+                        }
 
-                            }
-                            try
-                            {
-                                parts.RemoveAt(i+1);
-                            }
-                            catch
-                            {
-
-                            }
-                        
                     }
                 }
             }
@@ -709,6 +745,11 @@ namespace Plots
             MessageBox.Show("Autor: Krzysztof Nasuta\n\nProgram napisany w C# z użwyciem Windows Forms .NET oraz bibloteki ScottPlot.", "Info",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Asterisk);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
