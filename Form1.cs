@@ -409,6 +409,8 @@ namespace Plots
                             else
                             {
                                 parts[i] = "0";
+                                parts[0] = "0";
+                                return 0;
                             }
                         }
                         catch
