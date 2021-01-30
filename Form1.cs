@@ -420,7 +420,7 @@ namespace Plots
                             }
                             catch
                             {
-                                a = "0";
+                                a = "1";
                             }
                             try
                             {
@@ -430,10 +430,13 @@ namespace Plots
                             {
                                 b = "0";
                             }
-                             string result = Convert.ToString(Math.Pow(Convert.ToDouble(b), 1/Convert.ToDouble(a))); ;
-                             parts[i] = result;
-                             parts.RemoveAt(i+1);
-                             parts.RemoveAt(i+1);                           
+                            if (Convert.ToDouble(b) > 0)
+                            {
+                                string result = Convert.ToString(Math.Pow(Convert.ToDouble(b), 1 / Convert.ToDouble(a))); ;
+                                parts[i] = result;
+                                parts.RemoveAt(i + 1);
+                                parts.RemoveAt(i + 1);
+                            }
                         }
                         catch
                         {
@@ -569,77 +572,48 @@ namespace Plots
                     }
                     if (part.Contains("- "))
                     {
-                        /*string a, b;
                         try
                         {
-                            a = parts[i - 1];
-                        }
-                        catch
-                        {
-                            a = "0";
-                        }
-                        try
-                        {
-                            b = parts[i + 1];
-                        }
-                        catch
-                        {
-                            b = "0";
-                        }
-
-                        string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
-                        parts[i] = result;
-                        try
-                        {
-                            parts.RemoveAt(i - 1);
-                        }
-                        catch
-                        {
-
-                        }
-                        try
-                        {
-                            parts.RemoveAt(i+1);
-                        }
-                        catch
-                        {
-
-                        }*/
                             string a, b;
                             bool isA = true, isB = true;
-                            if(i>=1)
+                            if (i >= 1)
                             {
                                 a = parts[i - 1];
                             }
                             else
                             {
                                 a = "0";
-                            isA = false;
+                                isA = false;
                             }
-                            if(i<parts.Count-1)
+                            if (i < parts.Count - 1)
                             {
                                 b = parts[i + 1];
                             }
                             else
                             {
                                 b = "0";
-                            isB = false;
+                                isB = false;
                             }
                             string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
                             //MessageBox.Show(result);
                             parts[i] = result;
-                        if(isA && isB)
-                        {
-                            parts.RemoveAt(i - 1);
-                            parts.RemoveAt(i);
+                            if (isA && isB)
+                            {
+                                parts.RemoveAt(i - 1);
+                                parts.RemoveAt(i);
+                            }
+                            else if (isA && !isB)
+                            {
+                                parts.RemoveAt(i - 1);
+                            }
+                            else if (!isA && isB)
+                            {
+                                parts.RemoveAt(i + 1);
+                            }
                         }
-                        else if(isA && !isB)
+                        catch
                         {
-                            parts.RemoveAt(i - 1);
-                        }
-                        else if (!isA && isB)
-                        {
-                            parts.RemoveAt(i + 1);
+                            return 0;
                         }
 
                     }
