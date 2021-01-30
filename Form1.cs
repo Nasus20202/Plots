@@ -387,7 +387,7 @@ namespace Plots
                             return 0;
                         }
                     }
-                    if (part.Contains("sqrt") || part.Contains("pierw2"))
+                    if (part.Contains("sqrt"))
                     {
                         try
                         {
@@ -400,16 +400,23 @@ namespace Plots
                             {
                                 a = "0";
                             }
-                            string result = Convert.ToString(Math.Pow(Convert.ToDouble(a), 0.5));
-                            parts[i] = result;
-                            parts.RemoveAt(i + 1);
+                            if (double.Parse(a) >= 0)
+                            {
+                                string result = Convert.ToString(Math.Pow(Convert.ToDouble(a), 0.5));
+                                parts[i] = result;
+                                parts.RemoveAt(i + 1);
+                            }
+                            else
+                            {
+                                parts[i] = "0";
+                            }
                         }
                         catch
                         {
                             return 0;
                         }
                     }
-                    if (part.Contains("root") || part.Contains("pierw"))
+                    if (part.Contains("root"))
                     {
                         try
                         {
@@ -430,12 +437,16 @@ namespace Plots
                             {
                                 b = "0";
                             }
-                            if (Convert.ToDouble(b) > 0)
+                            if (Convert.ToDouble(b) >= 0)
                             {
                                 string result = Convert.ToString(Math.Pow(Convert.ToDouble(b), 1 / Convert.ToDouble(a))); ;
                                 parts[i] = result;
                                 parts.RemoveAt(i + 1);
                                 parts.RemoveAt(i + 1);
+                            }
+                            else
+                            {
+                                parts[i] = "0";
                             }
                         }
                         catch
@@ -572,10 +583,9 @@ namespace Plots
                     }
                     if (part.Contains("- "))
                     {
-                        try
-                        {
                             string a, b;
                             bool isA = true, isB = true;
+
                             if (i >= 1)
                             {
                                 a = parts[i - 1];
@@ -594,27 +604,36 @@ namespace Plots
                                 b = "0";
                                 isB = false;
                             }
-                            string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
-                            //MessageBox.Show(result);
-                            parts[i] = result;
-                            if (isA && isB)
+                            if (b.Contains("- "))
                             {
-                                parts.RemoveAt(i - 1);
+                                parts.RemoveAt(i);
                                 parts.RemoveAt(i);
                             }
-                            else if (isA && !isB)
+                            else if(a.Contains("- "))
                             {
                                 parts.RemoveAt(i - 1);
+                                parts.RemoveAt(i - 1);
                             }
-                            else if (!isA && isB)
+                            else
                             {
-                                parts.RemoveAt(i + 1);
+                                string result = Convert.ToString(Convert.ToDouble(a) - Convert.ToDouble(b));
+                                //MessageBox.Show(result);
+                                parts[i] = result;
+                                if (isA && isB)
+                                {
+                                    parts.RemoveAt(i - 1);
+                                    parts.RemoveAt(i);
+                                }
+                                else if (isA && !isB)
+                                {
+                                    parts.RemoveAt(i - 1);
+                                }
+                                else if (!isA && isB)
+                                {
+                                    parts.RemoveAt(i + 1);
+                                }
                             }
-                        }
-                        catch
-                        {
-                            return 0;
-                        }
+                        
 
                     }
                 }
@@ -695,8 +714,8 @@ namespace Plots
                 "Mnożenie (*) - 3 * x\n" +
                 "Dzielenie (/) - x / 0,5\n" +
                 "Potęgowanie (^) - 2 ^ 3\n" +
-                "Pierwiastek 2 stopnia (sqrt, pierw2) np. sqrt 4\n" +
-                "Pierwiastek dowolnego stopnia (root, pierw) np. root 2 9 = 3\n" +
+                "Pierwiastek 2 stopnia (sqrt) np. sqrt 4\n" +
+                "Pierwiastek dowolnego stopnia (root) np. root 2 9 = 3\n" +
                 "Nawiasy () - np. 5 - (2 + 3) = 0\n" +
                 "Funckje trygonometryczne:\n" +
                 "Sinus (sin) np. sin x\n" +
